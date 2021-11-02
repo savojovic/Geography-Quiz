@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Kviz</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Custom string-->
+    <string name="start">START</string>
+    <string name="settings">SETTINGS</string>
+    <string name="highscore">HIGHSCORE</string>
+    <string name="choose_category">Choose a category!</string>
+    <string name="capitals">Capitals</string>
+    <string name="flags">Flags</string>
+    <string name="sights">Sights</string>
+    <string name="neighbors">Neighbors</string>
+    <string name="captial_question">What is the capital of </string>
+</resources>
