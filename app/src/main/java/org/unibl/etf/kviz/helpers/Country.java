@@ -3,9 +3,9 @@ package org.unibl.etf.kviz.helpers;
 public class Country {
     public String countryName;
     public String capital;
-    String city1;
-    String city2;
-    String city3;
+    public String city1;
+    public String city2;
+    public String city3;
 
     public Country(String countryName, String capital, String city1, String city2, String city3){
         setCities(countryName, capital,city1,city2,city3);

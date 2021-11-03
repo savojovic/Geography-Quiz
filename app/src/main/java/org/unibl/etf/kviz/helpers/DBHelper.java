@@ -20,8 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text)");
-        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
-
+//        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
     }
 
     public void insertCountryCapital(String country, String capital,String city1,String city2, String city3){

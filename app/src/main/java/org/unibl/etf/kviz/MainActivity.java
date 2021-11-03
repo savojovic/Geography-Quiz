@@ -21,10 +21,19 @@ public class MainActivity extends AppCompatActivity {
     Button startBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createInitDataBase();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    private void createInitDataBase(){
+        DBHelper mydb = new DBHelper(this);
+        mydb.insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
+        mydb.insertCountryCapital("Croatia","Zagreb","Dubrovnik","Rijeka", "Zadar");
+        mydb.insertCountryCapital("United Kingdom","London","Glasgow","Manchester", "York");
+        mydb.insertCountryCapital("Germany","Berlin","Frankfurt","Koln", "Wolfsburg");
+        mydb.insertCountryCapital("Italy","Rome","Venice","Verona", "Trieste");
+    }
     @Override
     protected void onStart() {
         super.onStart();
