@@ -3,6 +3,7 @@ package org.unibl.etf.kviz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         createInitDataBase();
+        SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
+        editor.putInt(CategoriesActivity.PREFS_SCORE, 0);
+        editor.apply();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

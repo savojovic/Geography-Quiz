@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kviz">
-        <activity android:name=".CapitalsActivity"></activity>
+        <activity android:name=".CapitalsActivity"/>
         <activity android:name=".CategoriesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

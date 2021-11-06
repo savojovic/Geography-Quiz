@@ -3,6 +3,7 @@ package org.unibl.etf.kviz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,12 +26,15 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_categories);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        int score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+        getSupportActionBar().setTitle(PREFS_SCORE+": "+score);
         capitals = findViewById(R.id.btn_capitals);
         capitals.setOnClickListener(view->{
             Intent intent = new Intent(this, CapitalsActivity.class);

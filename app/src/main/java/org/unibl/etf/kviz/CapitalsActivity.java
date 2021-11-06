@@ -3,6 +3,7 @@ package org.unibl.etf.kviz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,12 +29,14 @@ public class CapitalsActivity extends AppCompatActivity {
     Button btnA, btnB, btnC, btnD;
     ImageButton btnPreviouse, btnNext;
     ProgressBar progressBar;
+    int score=0;
     private int questionNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         countries = dbHelper.getAllCountries();
+        getSupportActionBar().setTitle("SCORE: "+score);
         setContentView(R.layout.activity_capitals);
     }
 
@@ -55,9 +58,9 @@ public class CapitalsActivity extends AppCompatActivity {
             askQuestion();
             randomiseAnswers();
         }else if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS){
-            questionNumber=0;
-            askQuestion();
-            randomiseAnswers();
+//            questionNumber=0;
+//            askQuestion();
+//            randomiseAnswers();
         }
 
     }
@@ -119,11 +122,19 @@ public class CapitalsActivity extends AppCompatActivity {
             String answer = ((Button)v).getText().toString();
             if(answer.equals(countries.get(questionNumber).capital)) {
                 v.setBackgroundColor(Color.GREEN);
+                score++;
+                SharedPreferences preferences = getSharedPreferences(CategoriesActivity.PREFS_SCORE,MODE_PRIVATE);
+                int oldScore = preferences.getInt(CategoriesActivity.PREFS_SCORE,0);
+                SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
+                editor.putInt(CategoriesActivity.PREFS_SCORE, oldScore+1);
+                editor.apply();
+                editor.commit();
+                getSupportActionBar().setTitle( CategoriesActivity.PREFS_SCORE+": "+score);
             }else{
                 v.setBackgroundColor(Color.RED);
             }
             setIsClickable(false);
-            progressBar.setProgress(20*(questionNumber+1));
+            progressBar.setProgress((100/countries.size())*(questionNumber+1));
         };
         btnA.setOnClickListener(listener);
         btnB.setOnClickListener(listener);
@@ -131,16 +142,23 @@ public class CapitalsActivity extends AppCompatActivity {
         btnD.setOnClickListener(listener);
 
         btnNext.setOnClickListener(v->{
-            setIsClickable(true);
-            questionNumber++;
-            askQuestion();
-            setNeutralColor();
+            if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS-1) {
+
+                finish();
+            }
+            else{
+                setIsClickable(true);
+                questionNumber++;
+                askQuestion();
+                setNeutralColor();
+            }
+
         });
-        btnPreviouse.setOnClickListener(v->{
-            setIsClickable(true);
-            questionNumber--;
-            askQuestion();
-            setNeutralColor();
-        });
+//        btnPreviouse.setOnClickListener(v->{
+//            setIsClickable(true);
+//            questionNumber--;
+//            askQuestion();
+//            setNeutralColor();
+//        });
     }
 }
