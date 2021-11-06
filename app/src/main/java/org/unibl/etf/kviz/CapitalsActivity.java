@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.unibl.etf.kviz.helpers.Country;
@@ -26,8 +27,9 @@ public class CapitalsActivity extends AppCompatActivity {
     ArrayList<Country> countries;
     Button btnA, btnB, btnC, btnD;
     ImageButton btnPreviouse, btnNext;
-    private final int NUMEBR_OF_ANSWERS=4;
+    ProgressBar progressBar;
     private int questionNumber = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,8 @@ public class CapitalsActivity extends AppCompatActivity {
 
     }
     private void randomiseAnswers(){
-        int correctAnswerNum = (int)(Math.random()*NUMEBR_OF_ANSWERS);
+        int NUMBER_OF_ANSWERS = 4;
+        int correctAnswerNum = (int)(Math.random()* NUMBER_OF_ANSWERS);
         if(correctAnswerNum==0){
             btnA.setText(countries.get(questionNumber).capital);
             btnC.setText(countries.get(questionNumber).city1);
@@ -101,6 +104,7 @@ public class CapitalsActivity extends AppCompatActivity {
         btnD = findViewById(R.id.btn_capitals_d);
         btnPreviouse=findViewById(R.id.btn_previouse);
         btnNext=findViewById(R.id.btn_next);
+        progressBar=findViewById(R.id.progres_bar_capitals);
     }
 
     private void setIsClickable(boolean isClickable){
@@ -119,6 +123,7 @@ public class CapitalsActivity extends AppCompatActivity {
                 v.setBackgroundColor(Color.RED);
             }
             setIsClickable(false);
+            progressBar.setProgress(20*(questionNumber+1));
         };
         btnA.setOnClickListener(listener);
         btnB.setOnClickListener(listener);

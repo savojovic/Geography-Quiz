@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class CategoriesActivity extends AppCompatActivity {
     public static final int NUMBER_OF_QUESTIONS = 5;
+    public static final String PREFS_SCORE = "SCORE";
+
     TextView label;
     Button capitals;
     Button flags;
