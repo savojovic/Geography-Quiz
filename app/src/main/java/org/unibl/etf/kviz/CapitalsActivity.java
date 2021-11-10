@@ -3,6 +3,7 @@ package org.unibl.etf.kviz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.unibl.etf.kviz.helpers.Country;
 import org.unibl.etf.kviz.helpers.DBHelper;
@@ -27,7 +29,7 @@ public class CapitalsActivity extends AppCompatActivity {
     String question;
     ArrayList<Country> countries;
     Button btnA, btnB, btnC, btnD;
-    ImageButton btnPreviouse, btnNext;
+    ImageButton btnPreviouse, btnNext, btnInfo;
     ProgressBar progressBar;
     int score=0;
     private int questionNumber = 0;
@@ -108,6 +110,7 @@ public class CapitalsActivity extends AppCompatActivity {
         btnPreviouse=findViewById(R.id.btn_previouse);
         btnNext=findViewById(R.id.btn_next);
         progressBar=findViewById(R.id.progres_bar_capitals);
+        btnInfo=findViewById(R.id.btn_info);
     }
 
     private void setIsClickable(boolean isClickable){
@@ -116,6 +119,7 @@ public class CapitalsActivity extends AppCompatActivity {
         btnC.setClickable(isClickable);
         btnD.setClickable(isClickable);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setListeners(){
         View.OnClickListener listener = v -> {
@@ -140,10 +144,9 @@ public class CapitalsActivity extends AppCompatActivity {
         btnB.setOnClickListener(listener);
         btnC.setOnClickListener(listener);
         btnD.setOnClickListener(listener);
-
+        btnInfo.setOnClickListener((v)->launchMap());
         btnNext.setOnClickListener(v->{
             if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS-1) {
-
                 finish();
             }
             else{
@@ -160,5 +163,12 @@ public class CapitalsActivity extends AppCompatActivity {
 //            askQuestion();
 //            setNeutralColor();
 //        });
+    }
+    void launchMap(){
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("capital",countries.get(questionNumber).capital);
+        intent.putExtra("country",countries.get(questionNumber).countryName);
+        intent.putExtra("coa", countries.get(questionNumber).capitalCOA);
+        startActivity(intent);
     }
 }

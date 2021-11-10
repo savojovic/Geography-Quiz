@@ -19,11 +19,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text)");
+        db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text,coa text)");
 //        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
     }
 
-    public void insertCountryCapital(String country, String capital,String city1,String city2, String city3){
+    public void insertCountryCapital(String country, String capital,String city1,String city2, String city3, String coa){
         SQLiteDatabase mydb = this.getWritableDatabase();
         ContentValues params = new ContentValues();
         params.put("countryName",country);
@@ -31,9 +31,13 @@ public class DBHelper extends SQLiteOpenHelper {
         params.put("city1",city1);
         params.put("city2",city2);
         params.put("city3", city3);
+        params.put("coa",coa);
         mydb.insert(TABLE_CAPITALS, null, params);
     }
-
+    public void createRowWithCOA(){
+        SQLiteDatabase mydb = this.getReadableDatabase();
+        mydb.insert(TABLE_CAPITALS,"COA", null);
+    }
     public ArrayList<Country> getAllCountries(){
         ArrayList<Country> countries = new ArrayList<>();
 
@@ -44,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
         while(res.isAfterLast()==false){
             countries.add(new Country(
                     res.getString(0),res.getString(1),res.getString(2),
-                    res.getString(3), res.getString(4)));
+                    res.getString(3), res.getString(4),res.getString(5)));
             res.moveToNext();
         }
         res.close();

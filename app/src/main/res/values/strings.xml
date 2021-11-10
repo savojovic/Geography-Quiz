@@ -11,4 +11,6 @@
     <string name="sights">Sights</string>
     <string name="neighbors">Neighbors</string>
     <string name="captial_question">What is the capital of </string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoiam92b3NhdmljIiwiYSI6ImNrdnFzMmlsYTFjamQydnFoZHE3ZjlsM2MifQ.MpGfY_72yQqGsjQfiIjwHw</string>
+    <string name="geo_api_key">890e137fdd401da77cf796b9a167aa15</string>
 </resources>
