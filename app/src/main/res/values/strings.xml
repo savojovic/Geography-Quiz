@@ -11,6 +11,9 @@
     <string name="sights">Sights</string>
     <string name="neighbors">Neighbors</string>
     <string name="captial_question">What is the capital of </string>
-    <string name="mapbox_access_token">pk.eyJ1Ijoiam92b3NhdmljIiwiYSI6ImNrdnFzMmlsYTFjamQydnFoZHE3ZjlsM2MifQ.MpGfY_72yQqGsjQfiIjwHw</string>
-    <string name="geo_api_key">890e137fdd401da77cf796b9a167aa15</string>
+    <string name="api_key_geo">890e137fdd401da77cf796b9a167aa15</string>
+    <string name="news">News</string>
+    <string name="news_url">http://api.mediastack.com/v1/news</string>
+    <string name="api_key_news">377314c73b9f9768f67aa64b6e80fe9a</string>
+    <string name="limit_news">10</string>
 </resources>

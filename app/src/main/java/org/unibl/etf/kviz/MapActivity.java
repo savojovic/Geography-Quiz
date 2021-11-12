@@ -2,14 +2,20 @@ package org.unibl.etf.kviz;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,7 +44,7 @@ import java.util.ArrayList;
 public class MapActivity extends AppCompatActivity {
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
-    private String country, capital;
+    private String country, capital, domain;
     private IMapController mapController;
     private double latitude;
     private double longitude;
@@ -46,11 +52,12 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         String capital = getIntent().getExtras().getString("capital");
         String country = getIntent().getExtras().getString("country");
-
+        domain = getIntent().getExtras().getString("domain");
         new Geocoding(this).execute(capital+" "+country, this);
-        super.onCreate(savedInstanceState);
+
 
         //handle permissions first, before map is created. not depicted here
 
@@ -77,13 +84,30 @@ public class MapActivity extends AppCompatActivity {
         GeoPoint startPoint = new GeoPoint(48.8583, 2.2944);
         mapController.setCenter(startPoint);
 
-
         requestPermissionsIfNecessary(new String[]{
                 // if you need to show the current location, uncomment the line below
                 // Manifest.permission.ACCESS_FINE_LOCATION,
                 // WRITE_EXTERNAL_STORAGE is required in order to show the map
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.capital_news, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.btn_news) {
+            Intent intent = new Intent(this,NewsActivity.class);
+            intent.putExtra("domain",domain);
+            startActivity(intent);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -154,7 +178,7 @@ public class MapActivity extends AppCompatActivity {
         protected String doInBackground(Object... objects) {
             String address = (String) objects[0];
             Context context = (Context) objects[1];
-            urlAddress += context.getString(R.string.geo_api_key) + "&query=" + address;
+            urlAddress += context.getString(R.string.api_key_geo) + "&query=" + address;
 
             try {
                 URL url = new URL(urlAddress);
@@ -197,7 +221,6 @@ public class MapActivity extends AppCompatActivity {
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 startMarker.setImage(capitalCoa);
                 map.getOverlays().add(startMarker);
-
 //                startMarker.setIcon(getResources().getDrawable(R.drawable.ic_launcher_foreground));
                 startMarker.setTitle(getIntent().getExtras().getString("capital"));
             } catch (JSONException e) {

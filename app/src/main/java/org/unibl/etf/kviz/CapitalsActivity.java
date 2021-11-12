@@ -39,6 +39,7 @@ public class CapitalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         countries = dbHelper.getAllCountries();
         getSupportActionBar().setTitle("SCORE: "+score);
+
         setContentView(R.layout.activity_capitals);
     }
 
@@ -169,6 +170,7 @@ public class CapitalsActivity extends AppCompatActivity {
         intent.putExtra("capital",countries.get(questionNumber).capital);
         intent.putExtra("country",countries.get(questionNumber).countryName);
         intent.putExtra("coa", countries.get(questionNumber).capitalCOA);
+        intent.putExtra("domain",countries.get(questionNumber).domain);
         startActivity(intent);
     }
 }
