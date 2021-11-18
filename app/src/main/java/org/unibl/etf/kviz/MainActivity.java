@@ -42,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         mydb.insertCountryCapital("United Kingdom","London","Glasgow","Manchester", "York","https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coat_of_Arms_of_The_City_of_London.svg/330px-Coat_of_Arms_of_The_City_of_London.svg.png","gb");
         mydb.insertCountryCapital("Germany","Berlin","Frankfurt","Koln", "Wolfsburg","https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Coat_of_arms_of_Berlin.svg/225px-Coat_of_arms_of_Berlin.svg.png","de");
         mydb.insertCountryCapital("Italy","Rome","Venice","Verona", "Trieste","https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Insigne_Romanum_coronatum.svg/105px-Insigne_Romanum_coronatum.svg.png", "it");
+
+        mydb.insertNeighbors("Serbia","Croatia", "Bulgaria","Austria","Germany");
+        mydb.insertNeighbors("Austria","Germany", "Switzerland","Serbia","Spain");
+        mydb.insertNeighbors("Ukraine","Russia", "Romania","Portugal","Norway");
+        mydb.insertNeighbors("USA","Canada", "Mexico","Panama","Bolivia");
+        mydb.insertNeighbors("China","Russia", "India","Ukraine","Belarus");
+
     }
     @Override
     protected void onStart() {

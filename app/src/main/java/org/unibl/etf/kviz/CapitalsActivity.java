@@ -14,13 +14,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.unibl.etf.kviz.helpers.Country;
 import org.unibl.etf.kviz.helpers.DBHelper;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class CapitalsActivity extends AppCompatActivity {
 
@@ -37,7 +35,7 @@ public class CapitalsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_capitals);
+        setContentView(R.layout.activity_quiz);
         countries = dbHelper.getAllCountries();
         getSupportActionBar().setTitle("SCORE: "+score);
     }
@@ -102,14 +100,14 @@ public class CapitalsActivity extends AppCompatActivity {
         btnD.setBackgroundColor(primaryColor);
     }
     private void getReferences(){
-        textViewQuestion = findViewById(R.id.capitals_question);
-        btnA=findViewById(R.id.btn_capitals_a);
-        btnB = findViewById(R.id.btn_capitals_b);
-        btnC= findViewById(R.id.btn_capitals_c);
-        btnD = findViewById(R.id.btn_capitals_d);
+        textViewQuestion = findViewById(R.id.question);
+        btnA=findViewById(R.id.btn_a);
+        btnB = findViewById(R.id.btn_b);
+        btnC= findViewById(R.id.btn_c);
+        btnD = findViewById(R.id.btn_d);
 //        btnPreviouse=findViewById(R.id.btn_previouse);
         btnNext=findViewById(R.id.btn_next);
-        progressBar=findViewById(R.id.progres_bar_capitals);
+        progressBar=findViewById(R.id.progres_bar);
         btnInfo=findViewById(R.id.btn_info);
     }
 

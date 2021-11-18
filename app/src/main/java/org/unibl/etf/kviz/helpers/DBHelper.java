@@ -7,13 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "db_kviz";
     public static final String TABLE_CAPITALS = "capitals";
-
+    public static final String TABLE_NEIGHBORS = "neghbors";
 
     public DBHelper(Context context){
         super(context,DB_NAME, null, 1);
@@ -22,10 +25,45 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text,coa text,domain text)");
+        db.execSQL(
+                "create table "+TABLE_NEIGHBORS+"(" +
+                        "countryName text primary key, neighbor1 text, neighbor2 text, country1 text, country2 text,"+
+                        "foreign key(countryName) references "+TABLE_CAPITALS+"(countryName)"+
+                        ")"
+        );
 //        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
     }
-
-
+    public void insertNeighbors(String countryName, String neighbor1, String neighbor2, String country1, String country2) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues params = new ContentValues();
+        params.put("countryName", countryName);
+        params.put("neighbor1", neighbor1);
+        params.put("neighbor2", neighbor2);
+        params.put("country1", country1);
+        params.put("country2", country2);
+        db.insert(TABLE_NEIGHBORS, null, params);
+    }
+    public JSONArray getNeighbours(){
+        JSONArray countries = new JSONArray();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NEIGHBORS,null);
+        res.moveToFirst();
+        while(!res.isAfterLast()){
+            JSONObject country = new JSONObject();
+            try {
+                country.put("country",res.getString(0));
+                country.put("neighbor1",res.getString(1));
+                country.put("neighbor2",res.getString(2));
+                country.put("country1",res.getString(3));
+                country.put("country2",res.getString(4));
+                countries.put(country);
+                res.moveToNext();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return countries;
+    }
     public void insertCountryCapital(String country, String capital,String city1,String city2, String city3, String coa, String domain){
         SQLiteDatabase mydb = this.getWritableDatabase();
         ContentValues params = new ContentValues();
