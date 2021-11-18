@@ -39,5 +39,10 @@ public class CategoriesActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CapitalsActivity.class);
             startActivity(intent);
         });
+        flags=findViewById(R.id.btn_flags);
+        flags.setOnClickListener(v->{
+            Intent intent = new Intent(this, FlagsActivity.class);
+            startActivity(intent);
+        });
     }
 }

@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "db_kviz";
     public static final String TABLE_CAPITALS = "capitals";
+
 
     public DBHelper(Context context){
         super(context,DB_NAME, null, 1);
@@ -22,6 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text,coa text,domain text)");
 //        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
     }
+
 
     public void insertCountryCapital(String country, String capital,String city1,String city2, String city3, String coa, String domain){
         SQLiteDatabase mydb = this.getWritableDatabase();
@@ -37,12 +40,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Country> getAllCountries(){
         ArrayList<Country> countries = new ArrayList<>();
-
         SQLiteDatabase mydb = this.getReadableDatabase();
+
         Cursor res = mydb.rawQuery("select * from "+TABLE_CAPITALS, null);
         res.moveToFirst();
 
-        while(res.isAfterLast()==false){
+        while(!res.isAfterLast()){
             countries.add(new Country(
                     res.getString(0),res.getString(1),res.getString(2),
                     res.getString(3), res.getString(4),res.getString(5),res.getString(6)));
@@ -52,6 +55,29 @@ public class DBHelper extends SQLiteOpenHelper {
         return countries;
     }
 
+    public ArrayList<String> getCountryDomains(){
+        ArrayList<String> domains = new ArrayList<>();
+        SQLiteDatabase mydb = this.getReadableDatabase();
+        Cursor res = mydb.rawQuery("select domain from "+TABLE_CAPITALS, null);
+        res.moveToFirst();
+        while (!res.isAfterLast()){
+            domains.add(res.getString(0));
+            res.moveToNext();
+        }
+        res.close();
+        return domains;
+    }
+    public HashMap<String, String> getCountriesAndDomains(){
+         HashMap<String, String> res = new HashMap<>();
+         SQLiteDatabase mydb = this.getReadableDatabase();
+         Cursor response = mydb.rawQuery("select countryName, domain from "+TABLE_CAPITALS,null);
+         response.moveToFirst();
+         while(!response.isAfterLast()){
+             res.put(response.getString(0),response.getString(1));
+             response.moveToNext();
+         }
+         return res;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

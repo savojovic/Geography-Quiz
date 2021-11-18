@@ -37,10 +37,9 @@ public class CapitalsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_capitals);
         countries = dbHelper.getAllCountries();
         getSupportActionBar().setTitle("SCORE: "+score);
-
-        setContentView(R.layout.activity_capitals);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -108,7 +107,7 @@ public class CapitalsActivity extends AppCompatActivity {
         btnB = findViewById(R.id.btn_capitals_b);
         btnC= findViewById(R.id.btn_capitals_c);
         btnD = findViewById(R.id.btn_capitals_d);
-        btnPreviouse=findViewById(R.id.btn_previouse);
+//        btnPreviouse=findViewById(R.id.btn_previouse);
         btnNext=findViewById(R.id.btn_next);
         progressBar=findViewById(R.id.progres_bar_capitals);
         btnInfo=findViewById(R.id.btn_info);

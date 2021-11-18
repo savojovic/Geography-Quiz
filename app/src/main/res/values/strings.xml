@@ -16,4 +16,7 @@
     <string name="news_url">http://api.mediastack.com/v1/news</string>
     <string name="api_key_news">377314c73b9f9768f67aa64b6e80fe9a</string>
     <string name="limit_news">10</string>
+    <string name="flags_question">Guess the flag.</string>
+    <string name="next">NEXT</string>
+    <string name="info">INFO</string>
 </resources>
