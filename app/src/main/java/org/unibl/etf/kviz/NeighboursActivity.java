@@ -1,9 +1,12 @@
 package org.unibl.etf.kviz;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -43,6 +46,24 @@ public class NeighboursActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        infoBtn.setVisibility(View.INVISIBLE);
+        nextBtn.setOnClickListener(v->{
+            questionNumber++;
+            setNeutralColor();
+            askQuestion();
+            try {
+                randomiseAnswers();
+                numOfAnswers=0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void askQuestion() {
         try {
             JSONObject country = countries.getJSONObject(questionNumber);
@@ -81,10 +102,12 @@ public class NeighboursActivity extends AppCompatActivity {
             btn.setOnClickListener(this::handleClick);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void handleClick(View v){
         try {
             JSONObject country = countries.getJSONObject(questionNumber);
             Button btn = (Button)v;
+            btn.setClickable(false);
             if(btn.getText().toString().equals(country.getString("neighbor1"))){
                 btn.setBackgroundColor(Color.GREEN);
             }else if(btn.getText().toString().equals(country.getString("neighbor2"))){
@@ -97,15 +120,20 @@ public class NeighboursActivity extends AppCompatActivity {
         }
         numOfAnswers++;
         if(numOfAnswers==2){
-            questionNumber++;
-            askQuestion();
-            try {
-                randomiseAnswers();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            numOfAnswers=0;
+            btnA.setClickable(false);
+            btnB.setClickable(false);
+            btnC.setClickable(false);
+            btnD.setClickable(false);
         }
+    }
+    private void setNeutralColor(){
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int primaryColor = typedValue.data;
+        btnA.setBackgroundColor(primaryColor);
+        btnB.setBackgroundColor(primaryColor);
+        btnC.setBackgroundColor(primaryColor);
+        btnD.setBackgroundColor(primaryColor);
     }
     private void getReferences(){
         btnA=findViewById(R.id.btn_a);
