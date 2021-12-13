@@ -20,4 +20,6 @@
     <string name="next">NEXT</string>
     <string name="info">INFO</string>
     <string name="neighbors_question">What are neighbouring countries of</string>
+    <string name="sight_question">Where is this sight from?</string>
+    <string name="sight_content_desc">Sight</string>
 </resources>

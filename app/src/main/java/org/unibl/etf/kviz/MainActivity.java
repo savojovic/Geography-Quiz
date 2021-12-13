@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         mydb.insertNeighbors("USA","Canada", "Mexico","Panama","Bolivia");
         mydb.insertNeighbors("China","Russia", "India","Ukraine","Belarus");
 
+        mydb.insertSights("United Kingdom","Germany", "France", "USA","uk");
+        mydb.insertSights("USA","Germany", "France", "UK","us");
+        mydb.insertSights("France","Germany", "Spain", "USA","fr");
+        mydb.insertSights("Spain","Germany", "France", "USA","es");
+        mydb.insertSights("Russia","Germany", "France", "USA","ru");
+
     }
     @Override
     protected void onStart() {

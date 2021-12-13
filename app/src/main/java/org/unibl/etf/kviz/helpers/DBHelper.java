@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "db_kviz";
     public static final String TABLE_CAPITALS = "capitals";
     public static final String TABLE_NEIGHBORS = "neghbors";
+    public static final String TABLE_SIGHTS = "sights";
 
     public DBHelper(Context context){
         super(context,DB_NAME, null, 1);
@@ -31,7 +33,18 @@ public class DBHelper extends SQLiteOpenHelper {
                         "foreign key(countryName) references "+TABLE_CAPITALS+"(countryName)"+
                         ")"
         );
+        db.execSQL("create table "+TABLE_SIGHTS+ "(true text primary key, false1 text, false2 text, false3 text,domain text)");
 //        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
+    }
+    public void insertSights(String correctCountry, String country1, String country2, String country3, String domain){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues params = new ContentValues();
+        params.put("true",correctCountry);
+        params.put("false1",country1);
+        params.put("false2",country2);
+        params.put("false3",country3);
+        params.put("domain",domain);
+        db.insert(TABLE_SIGHTS,null,params);
     }
     public void insertNeighbors(String countryName, String neighbor1, String neighbor2, String country1, String country2) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -92,7 +105,40 @@ public class DBHelper extends SQLiteOpenHelper {
         res.close();
         return countries;
     }
+    public JSONArray getAllSightCountries(){
+        SQLiteDatabase mydb = this.getReadableDatabase();
 
+        Cursor res = mydb.rawQuery("select * from "+TABLE_SIGHTS,null);
+        res.moveToFirst();
+        JSONArray countries = new JSONArray();
+        while (!res.isAfterLast()){
+            JSONObject country = new JSONObject();
+            try {
+                country.put("true", res.getString(0));
+                country.put("false1", res.getString(1));
+                country.put("false2", res.getString(2));
+                country.put("false3", res.getString(3));
+                country.put("domain", res.getString(4));
+                countries.put(country);
+                res.moveToNext();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return countries;
+    }
+    public ArrayList<String> getSightDomains(){
+        ArrayList<String> domains = new ArrayList<>();
+        SQLiteDatabase mydb = this.getReadableDatabase();
+        Cursor res = mydb.rawQuery("select domain from "+TABLE_SIGHTS,null);
+        res.moveToFirst();
+        while (!res.isAfterLast()){
+            domains.add(res.getString(0));
+            res.moveToNext();
+        }
+        res.close();
+        return domains;
+    }
     public ArrayList<String> getCountryDomains(){
         ArrayList<String> domains = new ArrayList<>();
         SQLiteDatabase mydb = this.getReadableDatabase();

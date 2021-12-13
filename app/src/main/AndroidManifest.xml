@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kviz"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NeighboursActivity"></activity>
+        <activity android:name=".SightsActivity"></activity>
+        <activity android:name=".NeighboursActivity" />
         <activity android:name=".FlagsActivity" />
         <activity android:name=".NewsActivity" />
         <activity android:name=".MainActivity">

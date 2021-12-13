@@ -49,5 +49,10 @@ public class CategoriesActivity extends AppCompatActivity {
             Intent intent = new Intent(this,NeighboursActivity.class);
             startActivity(intent);
         });
+        sights=findViewById(R.id.btn_sights);
+        sights.setOnClickListener(v->{
+            Intent intent = new Intent(this, SightsActivity.class);
+            startActivity(intent);
+        });
     }
 }
