@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+
 public class FlagsActivity extends AppCompatActivity {
 
     ImageView flagImage;
@@ -42,11 +44,15 @@ public class FlagsActivity extends AppCompatActivity {
     ArrayList<String> countryDomains;
     private int questionNumber = 0;
 
+    int score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flags);
         getReferences();
+
+        score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+        getSupportActionBar().setTitle("SCORE: "+score);
 
         countryDomains = new DBHelper(this).getCountryDomains();
         setFlag();

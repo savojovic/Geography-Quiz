@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+
 public class NeighboursActivity extends AppCompatActivity {
 
     Button btnA, btnB, btnC, btnD;
@@ -32,11 +34,13 @@ public class NeighboursActivity extends AppCompatActivity {
     int numOfAnswers=0;
     JSONArray countries;
     int questionNumber=0;
-
+    int score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+        getSupportActionBar().setTitle("SCORE: "+score);
         countries = new DBHelper(this).getNeighbours();
         getReferences();
         askQuestion();

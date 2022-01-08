@@ -22,6 +22,8 @@ import org.unibl.etf.kviz.helpers.DBHelper;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+
 public class SightsActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -30,7 +32,7 @@ public class SightsActivity extends AppCompatActivity {
     ImageButton infoBtn;
     TextView question;
     ImageView sightImage;
-
+    int score;
     int questionNumber=0;
     JSONArray countries;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -38,6 +40,8 @@ public class SightsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sights);
+        score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+        getSupportActionBar().setTitle("SCORE: "+score);
         getreferences();
         setListeners();
         countries=new DBHelper(this).getAllSightCountries();

@@ -20,6 +20,8 @@ import org.unibl.etf.kviz.helpers.DBHelper;
 
 import java.util.ArrayList;
 
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+
 public class CapitalsActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
@@ -29,7 +31,7 @@ public class CapitalsActivity extends AppCompatActivity {
     Button btnA, btnB, btnC, btnD;
     ImageButton btnPreviouse, btnNext, btnInfo;
     ProgressBar progressBar;
-    int score=0;
+    int score;
     private int questionNumber = 0;
 
     @Override
@@ -37,6 +39,7 @@ public class CapitalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         countries = dbHelper.getAllCountries();
+        score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
         getSupportActionBar().setTitle("SCORE: "+score);
     }
 
@@ -125,13 +128,13 @@ public class CapitalsActivity extends AppCompatActivity {
             if(answer.equals(countries.get(questionNumber).capital)) {
                 v.setBackgroundColor(Color.GREEN);
                 score++;
-                SharedPreferences preferences = getSharedPreferences(CategoriesActivity.PREFS_SCORE,MODE_PRIVATE);
-                int oldScore = preferences.getInt(CategoriesActivity.PREFS_SCORE,0);
-                SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
-                editor.putInt(CategoriesActivity.PREFS_SCORE, oldScore+1);
+                SharedPreferences preferences = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE);
+                int oldScore = preferences.getInt(PREFS_SCORE,0);
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).edit();
+                editor.putInt(PREFS_SCORE, oldScore+1);
                 editor.apply();
                 editor.commit();
-                getSupportActionBar().setTitle( CategoriesActivity.PREFS_SCORE+": "+score);
+                getSupportActionBar().setTitle( PREFS_SCORE+": "+score);
             }else{
                 v.setBackgroundColor(Color.RED);
             }
