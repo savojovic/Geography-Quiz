@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -38,6 +39,8 @@ public class NeighboursActivity extends AppCompatActivity {
     JSONArray countries;
     int questionNumber=0;
     int score;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +62,6 @@ public class NeighboursActivity extends AppCompatActivity {
         super.onStart();
         infoBtn.setVisibility(View.INVISIBLE);
         nextBtn.setOnClickListener(v->{
-
-
             greenBtns=0;
             questionNumber++;
             setNeutralColor();
@@ -71,6 +72,7 @@ public class NeighboursActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            progressBar.setProgress((100/countries.length())*(questionNumber+1));
         });
     }
 
@@ -169,6 +171,7 @@ public class NeighboursActivity extends AppCompatActivity {
         infoBtn=findViewById(R.id.btn_info);
         nextBtn=findViewById(R.id.btn_next);
         question=findViewById(R.id.question);
+        progressBar=findViewById(R.id.progres_bar);
     }
 
 

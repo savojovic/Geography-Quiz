@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -34,6 +35,7 @@ public class SightsActivity extends AppCompatActivity {
     ImageView sightImage;
     int score;
     int questionNumber=0;
+    ProgressBar progressBar;
     JSONArray countries;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -65,7 +67,7 @@ public class SightsActivity extends AppCompatActivity {
             v.setBackgroundColor(Color.RED);
         }
         setIsClickable(false);
-//        progressBar.setProgress((100/countries.size())*(questionNumber+1));
+        progressBar.setProgress((100/countries.length())*(questionNumber+1));
         }catch (Exception e){
 
         }
@@ -154,5 +156,6 @@ public class SightsActivity extends AppCompatActivity {
         infoBtn.setVisibility(View.INVISIBLE);
         nextBtn=findViewById(R.id.btn_next);
         question=findViewById(R.id.question);
+        progressBar=findViewById(R.id.progres_bar);
     }
 }

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class FlagsActivity extends AppCompatActivity {
     GridLayout answersBox;
     ImageButton flagNext;
 
+    ProgressBar progressBar;
     String currentCountryName = "";
     ArrayList<String> countryDomains;
     private int questionNumber = 0;
@@ -130,6 +132,7 @@ public class FlagsActivity extends AppCompatActivity {
                 //TODO: save score to prefs
                 finish();
             }else {
+                progressBar.setProgress((100/countryDomains.size())*(questionNumber+1));
                 questionNumber++;
                 flagAnswer.removeAllViews();
                 setFlag();
@@ -143,6 +146,7 @@ public class FlagsActivity extends AppCompatActivity {
         flagAnswer=findViewById(R.id.flag_answer);
         answersBox=findViewById(R.id.answer_grid);
         flagNext=findViewById(R.id.flags_next_btn);
+        progressBar=findViewById(R.id.progres_bar);
     }
     private void setFlag(){
         String flagName = "ic_"+countryDomains.get(questionNumber);
