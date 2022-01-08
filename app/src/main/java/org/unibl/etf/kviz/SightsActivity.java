@@ -53,14 +53,14 @@ public class SightsActivity extends AppCompatActivity {
         String answer = ((Button)v).getText().toString();
         if(answer.equals(countries.getJSONObject(questionNumber).getString("true"))){
             v.setBackgroundColor(Color.GREEN);
-            //score++;
+            score++;
             SharedPreferences preferences = getSharedPreferences(CategoriesActivity.PREFS_SCORE,MODE_PRIVATE);
             int oldScore = preferences.getInt(CategoriesActivity.PREFS_SCORE,0);
             SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
             editor.putInt(CategoriesActivity.PREFS_SCORE, oldScore+1);
             editor.apply();
             editor.commit();
-//            getSupportActionBar().setTitle( CategoriesActivity.PREFS_SCORE+": "+score);
+            getSupportActionBar().setTitle( CategoriesActivity.PREFS_SCORE+": "+score);
         }else{
             v.setBackgroundColor(Color.RED);
         }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -78,8 +80,19 @@ public class FlagsActivity extends AppCompatActivity {
             String text = (String) btn.getText();
             answer.append(text);
         }
-        if(answer.toString().toLowerCase().equals(currentCountryName.toLowerCase()))
-            flagNext.callOnClick();
+        if(answer.toString().toLowerCase().equals(currentCountryName.toLowerCase())) {
+            score++;
+            SharedPreferences preferences = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE);
+            int oldScore = preferences.getInt(PREFS_SCORE,0);
+            SharedPreferences.Editor editor = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).edit();
+            editor.putInt(PREFS_SCORE, oldScore+1);
+            editor.apply();
+            editor.commit();
+            getSupportActionBar().setTitle( PREFS_SCORE+": "+score);
+            flagNext.setBackgroundColor(Color.GREEN);
+        }else{
+            flagNext.setBackgroundColor(Color.RED);
+        }
     }
     private void handleClick(View v){
         answersBox.removeView(v);
@@ -92,6 +105,7 @@ public class FlagsActivity extends AppCompatActivity {
         checkAnswer();
     }
     private void setAnswers(){
+        flagNext.setBackgroundColor(Color.RED);
         View.OnClickListener listener= this::handleClick;
         answersBox.removeAllViews();
         HashMap<String, String> countriesAndDomains = new DBHelper(this).getCountriesAndDomains();

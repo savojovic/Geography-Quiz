@@ -3,6 +3,7 @@ package org.unibl.etf.kviz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,10 +27,12 @@ import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
 
 public class NeighboursActivity extends AppCompatActivity {
 
+
     Button btnA, btnB, btnC, btnD;
     ImageButton nextBtn;
     ImageButton infoBtn;
     TextView question;
+    int greenBtns=0;
 
     int numOfAnswers=0;
     JSONArray countries;
@@ -56,6 +59,9 @@ public class NeighboursActivity extends AppCompatActivity {
         super.onStart();
         infoBtn.setVisibility(View.INVISIBLE);
         nextBtn.setOnClickListener(v->{
+
+
+            greenBtns=0;
             questionNumber++;
             setNeutralColor();
             askQuestion();
@@ -114,8 +120,24 @@ public class NeighboursActivity extends AppCompatActivity {
             btn.setClickable(false);
             if(btn.getText().toString().equals(country.getString("neighbor1"))){
                 btn.setBackgroundColor(Color.GREEN);
+                SharedPreferences preferences = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE);
+                int oldScore = preferences.getInt(PREFS_SCORE,0);
+                int newScore = oldScore+1;
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).edit();
+                editor.putInt(PREFS_SCORE, newScore);
+                editor.apply();
+                editor.commit();
+                getSupportActionBar().setTitle( PREFS_SCORE+": "+newScore);
             }else if(btn.getText().toString().equals(country.getString("neighbor2"))){
                 btn.setBackgroundColor(Color.GREEN);
+                SharedPreferences preferences = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE);
+                int oldScore = preferences.getInt(PREFS_SCORE,0);
+                int newScore = oldScore+1;
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).edit();
+                editor.putInt(PREFS_SCORE, newScore);
+                editor.apply();
+                editor.commit();
+                getSupportActionBar().setTitle( PREFS_SCORE+": "+newScore);
             }else{
                 btn.setBackgroundColor(Color.RED);
             }
