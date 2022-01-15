@@ -22,4 +22,5 @@
     <string name="neighbors_question">What are neighbouring countries of</string>
     <string name="sight_question">Where is this sight from?</string>
     <string name="sight_content_desc">Sight</string>
+    <string name="broj_pitanja_text">Izaberite broj pitanja po kategoriji</string>
 </resources>

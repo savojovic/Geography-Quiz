@@ -24,6 +24,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Button startBtn;
+    Button settingsBtn;
+    Button highScoreBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         createInitDataBase();
@@ -62,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
         startBtn=findViewById(R.id.btn_start);
         startBtn.setOnClickListener(view->{
             Intent intent = new Intent(this, CategoriesActivity.class);
+            startActivity(intent);
+        });
+        settingsBtn=findViewById(R.id.btn_settings);
+        settingsBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        });
+        highScoreBtn=findViewById(R.id.btn_highscore);
+        highScoreBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this, HighScoreActivity.class);
             startActivity(intent);
         });
     }
