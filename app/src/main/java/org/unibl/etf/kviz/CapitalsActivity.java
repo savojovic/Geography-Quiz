@@ -24,7 +24,7 @@ import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
 
 public class CapitalsActivity extends AppCompatActivity {
 
-    DBHelper dbHelper = new DBHelper(this);
+    DBHelper dbHelper;
     TextView textViewQuestion ;
     String question;
     ArrayList<Country> countries;
@@ -38,6 +38,7 @@ public class CapitalsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        dbHelper = new DBHelper(this);
         countries = dbHelper.getAllCountries();
         score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
         getSupportActionBar().setTitle("SCORE: "+score);

@@ -2,6 +2,7 @@ package org.unibl.etf.kviz.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,18 +15,31 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static android.content.Context.MODE_PRIVATE;
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "db_kviz";
     public static final String TABLE_CAPITALS = "capitals";
     public static final String TABLE_NEIGHBORS = "neghbors";
     public static final String TABLE_SIGHTS = "sights";
+    public static final String PREFS_QUESTION_NUMBER = "QUESTION_NUMBER";
+    private int numberOfQuestions;
+    Context context;
+
+    SharedPreferences prefs;
 
     public DBHelper(Context context){
         super(context,DB_NAME, null, 1);
+        this.context=context;
+        prefs = context.getSharedPreferences(PREFS_QUESTION_NUMBER,MODE_PRIVATE);
+        numberOfQuestions = Integer.parseInt(prefs.getString(PREFS_QUESTION_NUMBER,"5"));
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_SCORE,MODE_PRIVATE);
+
         db.execSQL("create table "+TABLE_CAPITALS+" (countryName text primary key, capital text, city1 text, city2 text, city3 text,coa text,domain text)");
         db.execSQL(
                 "create table "+TABLE_NEIGHBORS+"(" +
@@ -59,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public JSONArray getNeighbours(){
         JSONArray countries = new JSONArray();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_NEIGHBORS,null);
+        Cursor res = db.rawQuery("select * from "+TABLE_NEIGHBORS + " order by random() limit "+numberOfQuestions,null);
         res.moveToFirst();
         while(!res.isAfterLast()){
             JSONObject country = new JSONObject();
@@ -93,7 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Country> countries = new ArrayList<>();
         SQLiteDatabase mydb = this.getReadableDatabase();
 
-        Cursor res = mydb.rawQuery("select * from "+TABLE_CAPITALS, null);
+        Cursor res = mydb.rawQuery("select * from "+TABLE_CAPITALS+ " order by random() limit "+numberOfQuestions, null);
         res.moveToFirst();
 
         while(!res.isAfterLast()){
@@ -108,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public JSONArray getAllSightCountries(){
         SQLiteDatabase mydb = this.getReadableDatabase();
 
-        Cursor res = mydb.rawQuery("select * from "+TABLE_SIGHTS,null);
+        Cursor res = mydb.rawQuery("select * from "+TABLE_SIGHTS+ " order by random() limit "+numberOfQuestions,null);
         res.moveToFirst();
         JSONArray countries = new JSONArray();
         while (!res.isAfterLast()){
@@ -130,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getSightDomains(){
         ArrayList<String> domains = new ArrayList<>();
         SQLiteDatabase mydb = this.getReadableDatabase();
-        Cursor res = mydb.rawQuery("select domain from "+TABLE_SIGHTS,null);
+        Cursor res = mydb.rawQuery("select domain from "+TABLE_SIGHTS+ " order by random() limit "+numberOfQuestions,null);
         res.moveToFirst();
         while (!res.isAfterLast()){
             domains.add(res.getString(0));
@@ -142,7 +156,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getCountryDomains(){
         ArrayList<String> domains = new ArrayList<>();
         SQLiteDatabase mydb = this.getReadableDatabase();
-        Cursor res = mydb.rawQuery("select domain from "+TABLE_CAPITALS, null);
+        Cursor res = mydb.rawQuery("select domain from "+TABLE_CAPITALS+ " order by random() limit "+numberOfQuestions, null);
         res.moveToFirst();
         while (!res.isAfterLast()){
             domains.add(res.getString(0));
@@ -154,7 +168,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public HashMap<String, String> getCountriesAndDomains(){
          HashMap<String, String> res = new HashMap<>();
          SQLiteDatabase mydb = this.getReadableDatabase();
-         Cursor response = mydb.rawQuery("select countryName, domain from "+TABLE_CAPITALS,null);
+         Cursor response = mydb.rawQuery("select countryName, domain from "+TABLE_CAPITALS+ " order by random() limit "+numberOfQuestions,null);
          response.moveToFirst();
          while(!response.isAfterLast()){
              res.put(response.getString(0),response.getString(1));

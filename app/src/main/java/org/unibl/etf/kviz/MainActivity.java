@@ -21,6 +21,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+import static org.unibl.etf.kviz.helpers.DBHelper.PREFS_QUESTION_NUMBER;
+
 public class MainActivity extends AppCompatActivity {
 
     Button startBtn;
@@ -33,10 +36,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
         editor.putInt(CategoriesActivity.PREFS_SCORE, 0);
         editor.apply();
+//        editor.commit();
+        setPreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    private void setPreferences(){
+        SharedPreferences preferences = getSharedPreferences(PREFS_QUESTION_NUMBER,MODE_PRIVATE);
+        String number = preferences.getString(PREFS_QUESTION_NUMBER,"0");
+        if("0".equals(number)){
+            SharedPreferences.Editor editor = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).edit();
+            editor.putString(DBHelper.PREFS_QUESTION_NUMBER,"5");
+            editor.apply();
+            editor.commit();
+        }
+    }
 
     private void createInitDataBase(){
         DBHelper mydb = new DBHelper(this);
