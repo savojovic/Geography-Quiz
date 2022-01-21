@@ -18,18 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kviz"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HighScoreActivity"></activity>
+        <activity android:name=".UsernameActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HighScoreActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".SightsActivity" />
         <activity android:name=".NeighboursActivity" />
         <activity android:name=".FlagsActivity" />
         <activity android:name=".NewsActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".MapActivity" />
         <activity android:name=".CapitalsActivity" />

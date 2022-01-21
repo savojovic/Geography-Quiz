@@ -22,11 +22,19 @@ public class CategoriesActivity extends AppCompatActivity {
     Button flags;
     Button neighbors;
     Button sights;
+    Button finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+        finish=findViewById(R.id.finishBtn);
+        finish.setOnClickListener(v->{
+            SharedPreferences preferences = getSharedPreferences(UsernameActivity.PREFS_USERNAME,MODE_PRIVATE);
+            String username = preferences.getString(UsernameActivity.PREFS_USERNAME,"-1");
+            int score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+            new DBHelper(this).saveScore(username, score);
+        });
     }
 
     @Override

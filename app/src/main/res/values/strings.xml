@@ -23,4 +23,6 @@
     <string name="sight_question">Where is this sight from?</string>
     <string name="sight_content_desc">Sight</string>
     <string name="broj_pitanja_text">Izaberite broj pitanja po kategoriji</string>
+    <string name="username_prompt">Enter your username</string>
+    <string name="finish">FINISH</string>
 </resources>

@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
@@ -23,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_CAPITALS = "capitals";
     public static final String TABLE_NEIGHBORS = "neghbors";
     public static final String TABLE_SIGHTS = "sights";
+    public static final String TABLE_HIGHSCORE = "highscore";
     public static final String PREFS_QUESTION_NUMBER = "QUESTION_NUMBER";
     private int numberOfQuestions;
     Context context;
@@ -48,7 +51,26 @@ public class DBHelper extends SQLiteOpenHelper {
                         ")"
         );
         db.execSQL("create table "+TABLE_SIGHTS+ "(true text primary key, false1 text, false2 text, false3 text,domain text)");
+        db.execSQL("create table "+TABLE_HIGHSCORE+ "(username text primary key, highscore integer)");
+
 //        insertCountryCapital("Serbia","Belgrade","Novi Sad","Cacak", "Nis");
+    }
+    public void saveScore(String username, int score){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues params = new ContentValues();
+        params.put("username",username);
+        params.put("highscore",score);
+        long res = db.insert(TABLE_HIGHSCORE,null,params);
+        if(res==-1){
+            String sql = "select highscore from "+TABLE_HIGHSCORE+" where username='"+username+"'";
+            Cursor highscoreCursor = db.rawQuery("select highscore from "+TABLE_HIGHSCORE+" where username='"+username+"'",null);
+            highscoreCursor.moveToFirst();
+            String highcore = highscoreCursor.getString(0);
+            if(Integer.parseInt(highcore)<score) {
+                db.execSQL("update " + TABLE_HIGHSCORE + " SET highscore='" + score + "' where username='" + username + "'");
+            }
+        }
+
     }
     public void insertSights(String correctCountry, String country1, String country2, String country3, String domain){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -69,6 +91,17 @@ public class DBHelper extends SQLiteOpenHelper {
         params.put("country1", country1);
         params.put("country2", country2);
         db.insert(TABLE_NEIGHBORS, null, params);
+    }
+    public List<String> getHighscores(){
+        ArrayList<String> array = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_HIGHSCORE+ " order by highscore desc",null);
+        res.moveToFirst();
+        while(!res.isAfterLast()){
+                array.add(res.getString(0)+": "+res.getString(1));
+                res.moveToNext();
+        }
+        return array;
     }
     public JSONArray getNeighbours(){
         JSONArray countries = new JSONArray();
