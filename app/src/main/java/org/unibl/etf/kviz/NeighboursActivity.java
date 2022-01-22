@@ -62,6 +62,9 @@ public class NeighboursActivity extends AppCompatActivity {
         super.onStart();
         infoBtn.setVisibility(View.INVISIBLE);
         nextBtn.setOnClickListener(v->{
+            if(questionNumber+1==countries.length()){
+                finish();
+            }
             greenBtns=0;
             questionNumber++;
             setNeutralColor();

@@ -67,7 +67,6 @@ public class SightsActivity extends AppCompatActivity {
             v.setBackgroundColor(Color.RED);
         }
         setIsClickable(false);
-        progressBar.setProgress((100/countries.length())*(questionNumber+1));
         }catch (Exception e){
 
         }
@@ -84,6 +83,7 @@ public class SightsActivity extends AppCompatActivity {
             }
             else{
                 setIsClickable(true);
+                progressBar.setProgress((100/countries.length())*(questionNumber+1));
                 questionNumber++;
                 setSight();
                 randomiseAnswers();
@@ -156,6 +156,6 @@ public class SightsActivity extends AppCompatActivity {
         infoBtn.setVisibility(View.INVISIBLE);
         nextBtn=findViewById(R.id.btn_next);
         question=findViewById(R.id.question);
-        progressBar=findViewById(R.id.progres_bar);
+        progressBar=findViewById(R.id.progress_bar);
     }
 }

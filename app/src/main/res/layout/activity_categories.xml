@@ -8,20 +8,24 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
         android:text="@string/choose_category"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <Button
         android:id="@+id/btn_capitals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginTop="120dp"
         android:text="@string/capitals"
         android:textColor="@color/white"
@@ -34,8 +38,8 @@
 
     <Button
         android:id="@+id/btn_flags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginTop="44dp"
         android:text="@string/flags"
         android:textColor="@color/white"
@@ -47,8 +51,8 @@
 
     <Button
         android:id="@+id/btn_neighbors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginTop="36dp"
         android:text="@string/neighbors"
         android:textColor="@color/white"
@@ -61,8 +65,8 @@
 
     <Button
         android:id="@+id/btn_sights"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:text="@string/sights"
         android:textColor="@color/white"

@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Quiz</string>
     <string name="title_activity_main">MainActivity</string>
-    <!-- Custom string-->
     <string name="start">START</string>
     <string name="settings">SETTINGS</string>
     <string name="highscore">HIGHSCORE</string>
@@ -10,7 +10,7 @@
     <string name="flags">Flags</string>
     <string name="sights">Sights</string>
     <string name="neighbors">Neighbors</string>
-    <string name="captial_question">What is the capital of </string>
+    <string name="captial_question">"What is the capital of "</string>
     <string name="api_key_geo">890e137fdd401da77cf796b9a167aa15</string>
     <string name="news">News</string>
     <string name="news_url">http://api.mediastack.com/v1/news</string>
