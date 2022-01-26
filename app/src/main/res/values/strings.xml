@@ -25,5 +25,8 @@
     <string name="broj_pitanja_text">Chose number of questions per category.</string>
     <string name="username_prompt">Enter your username</string>
     <string name="finish">FINISH</string>
-    <string name="facebook_app_id">457837392658392</string>
+    <string name="jezik_aplikacije">Choose preferred language</string>
+    <string name="save">SAVE</string>
+    <string name="facebook_client_token" translatable="false">9f55b7762feec88f6754faf37ae1af27</string>
+    <string name="facebook_app_id" translatable="false">457837392658392</string>
 </resources>

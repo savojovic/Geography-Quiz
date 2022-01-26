@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,8 +21,10 @@ import org.unibl.etf.kviz.helpers.DBHelper;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static org.unibl.etf.kviz.CategoriesActivity.PREFS_SCORE;
+import static org.unibl.etf.kviz.UsernameActivity.PREFS_LANGUAGE;
 import static org.unibl.etf.kviz.helpers.DBHelper.PREFS_QUESTION_NUMBER;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setLanguage();
         createInitDataBase();
         SharedPreferences.Editor editor = getSharedPreferences(CategoriesActivity.PREFS_SCORE, MODE_PRIVATE).edit();
         editor.putInt(CategoriesActivity.PREFS_SCORE, 0);
@@ -42,6 +46,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    private void setLanguage() {
+        SharedPreferences preferences = getSharedPreferences(PREFS_LANGUAGE, MODE_PRIVATE);
+        String lang = preferences.getString(PREFS_LANGUAGE, "non");
+        if ("non".equals(lang)) {
+            preferences.edit().putString(PREFS_LANGUAGE, "sr").apply();
+            lang = "sr";
+
+        }
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+//        recreate();
+    }
     private void setPreferences(){
         SharedPreferences preferences = getSharedPreferences(PREFS_QUESTION_NUMBER,MODE_PRIVATE);
         String number = preferences.getString(PREFS_QUESTION_NUMBER,"0");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kviz</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Kviz</string>
     <string name="start">START</string>
     <string name="settings">PODESAVANJA</string>
     <string name="highscore">REZULTATI</string>
@@ -26,4 +26,6 @@
     <string name="username_prompt">Unesite korisnicko ime</string>
     <string name="finish">ZAVRSI</string>
     <string name="facebook_app_id">457837392658392</string>
+    <string name="jezik_aplikacije">Izaberite zeljeni jezik</string>
+    <string name="save">SAVE</string>
 </resources>

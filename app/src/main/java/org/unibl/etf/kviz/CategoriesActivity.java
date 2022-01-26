@@ -4,9 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import org.unibl.etf.kviz.helpers.Country;
 import org.unibl.etf.kviz.helpers.DBHelper;
@@ -24,16 +31,32 @@ public class CategoriesActivity extends AppCompatActivity {
     Button sights;
     Button finish;
 
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         finish=findViewById(R.id.finishBtn);
-        finish.setOnClickListener(v->{
-            SharedPreferences preferences = getSharedPreferences(UsernameActivity.PREFS_USERNAME,MODE_PRIVATE);
-            String username = preferences.getString(UsernameActivity.PREFS_USERNAME,"-1");
-            int score = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getInt(PREFS_SCORE,0);
+        finish.setOnClickListener(v-> {
+            SharedPreferences preferences = getSharedPreferences(UsernameActivity.PREFS_USERNAME, MODE_PRIVATE);
+            String username = preferences.getString(UsernameActivity.PREFS_USERNAME, "-1");
+            int score = getSharedPreferences(PREFS_SCORE, MODE_PRIVATE).getInt(PREFS_SCORE, 0);
             new DBHelper(this).saveScore(username, score);
+            FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+
+            callbackManager = CallbackManager.Factory.create();
+            shareDialog = new ShareDialog(this);
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setQuote("Moj rezultat u kvizu: "+score)
+                    .setContentUrl(Uri.parse("https://etf.unibl.org/"))
+                    .build();
+            if (shareDialog.canShow(ShareLinkContent.class)) {
+                shareDialog.show(linkContent);
+            }
+//            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 
