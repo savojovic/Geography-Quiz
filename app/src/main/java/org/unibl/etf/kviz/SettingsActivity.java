@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
         englishRadioBtn=findViewById(R.id.english_radio_btn);
         serbianRadioBtn=findViewById(R.id.serbian_radio_btn);
 
-        String numberOfQuestions = getSharedPreferences(PREFS_SCORE,MODE_PRIVATE).getString(DBHelper.PREFS_QUESTION_NUMBER,"0");
+        String numberOfQuestions = getSharedPreferences(PREFS_QUESTION_NUMBER,MODE_PRIVATE).getString(DBHelper.PREFS_QUESTION_NUMBER,"0");
         String currentLang = getSharedPreferences(UsernameActivity.PREFS_LANGUAGE,MODE_PRIVATE).getString(UsernameActivity.PREFS_LANGUAGE,"non");
 
         if("en".equals(currentLang)){
@@ -61,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_QUESTION_NUMBER, MODE_PRIVATE).edit();
         editor.putString(DBHelper.PREFS_QUESTION_NUMBER,numOfQuestions);
         editor.apply();
+        recreate();
     }
     public void onRadioButtonClicked(View v){
         String btnLanguage= ((RadioButton)v).getText().toString();

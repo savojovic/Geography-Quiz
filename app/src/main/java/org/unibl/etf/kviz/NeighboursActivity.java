@@ -75,7 +75,7 @@ public class NeighboursActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressBar.setProgress((100/countries.length())*(questionNumber+1));
+            progressBar.setProgress((100/(countries.length()))*(questionNumber));
         });
     }
 

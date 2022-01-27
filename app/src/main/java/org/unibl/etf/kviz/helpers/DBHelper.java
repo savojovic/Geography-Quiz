@@ -201,7 +201,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public HashMap<String, String> getCountriesAndDomains(){
          HashMap<String, String> res = new HashMap<>();
          SQLiteDatabase mydb = this.getReadableDatabase();
-         Cursor response = mydb.rawQuery("select countryName, domain from "+TABLE_CAPITALS+ " order by random() limit "+numberOfQuestions,null);
+         Cursor response = mydb.rawQuery("select countryName, domain from "+TABLE_CAPITALS,null);
          response.moveToFirst();
          while(!response.isAfterLast()){
              res.put(response.getString(0),response.getString(1));

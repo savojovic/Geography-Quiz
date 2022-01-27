@@ -140,6 +140,7 @@ public class FlagsActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getReferences(){
         flagImage=findViewById(R.id.flag_img);
         flagQuestion=findViewById(R.id.flag_question);
@@ -148,6 +149,7 @@ public class FlagsActivity extends AppCompatActivity {
         flagNext=findViewById(R.id.flags_next_btn);
         progressBar=findViewById(R.id.progres_bar);
     }
+
     private void setFlag(){
         String flagName = "ic_"+countryDomains.get(questionNumber);
         try {

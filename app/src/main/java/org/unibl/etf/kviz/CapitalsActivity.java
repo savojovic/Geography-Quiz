@@ -61,7 +61,7 @@ public class CapitalsActivity extends AppCompatActivity {
             questionNumber=4;
             askQuestion();
             randomiseAnswers();
-        }else if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS){
+        }else if(questionNumber==countries.size()){
 //            questionNumber=0;
 //            askQuestion();
 //            randomiseAnswers();
@@ -148,7 +148,7 @@ public class CapitalsActivity extends AppCompatActivity {
         btnD.setOnClickListener(listener);
         btnInfo.setOnClickListener((v)->launchMap());
         btnNext.setOnClickListener(v->{
-            if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS-1) {
+            if(questionNumber==countries.size()-1) {
                 finish();
             }
             else{

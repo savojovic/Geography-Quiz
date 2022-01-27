@@ -78,12 +78,12 @@ public class SightsActivity extends AppCompatActivity {
         btnD.setOnClickListener(this::handleClick);
 
         nextBtn.setOnClickListener(v->{
-            if(questionNumber==CategoriesActivity.NUMBER_OF_QUESTIONS-1) {
+            if(questionNumber==countries.length()-1) {
                 finish();
             }
             else{
                 setIsClickable(true);
-                progressBar.setProgress((100/countries.length())*(questionNumber+1));
+                progressBar.setProgress((100/(countries.length()-1))*(questionNumber+1));
                 questionNumber++;
                 setSight();
                 randomiseAnswers();
