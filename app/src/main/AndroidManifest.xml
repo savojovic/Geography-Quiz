@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.unibl.etf.kviz">
+    package="org.unibl.etf.jkviz">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kviz"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UsernameActivity">
+        <activity android:name="org.unibl.etf.jkviz.UsernameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,13 +37,13 @@
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
 
-        <activity android:name=".HighScoreActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SightsActivity" />
-        <activity android:name=".NeighboursActivity" />
-        <activity android:name=".FlagsActivity" />
-        <activity android:name=".NewsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="org.unibl.etf.jkviz.HighScoreActivity" />
+        <activity android:name="org.unibl.etf.jkviz.SettingsActivity" />
+        <activity android:name="org.unibl.etf.jkviz.SightsActivity" />
+        <activity android:name="org.unibl.etf.jkviz.NeighboursActivity" />
+        <activity android:name="org.unibl.etf.jkviz.FlagsActivity" />
+        <activity android:name="org.unibl.etf.jkviz.NewsActivity" />
+        <activity android:name="org.unibl.etf.jkviz.MainActivity">
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
@@ -51,9 +51,9 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".MapActivity" />
-        <activity android:name=".CapitalsActivity" />
-        <activity android:name=".CategoriesActivity" />
+        <activity android:name="org.unibl.etf.jkviz.MapActivity" />
+        <activity android:name="org.unibl.etf.jkviz.CapitalsActivity" />
+        <activity android:name="org.unibl.etf.jkviz.CategoriesActivity" />
     </application>
 
 </manifest>
